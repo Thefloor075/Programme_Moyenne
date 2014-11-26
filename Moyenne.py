@@ -22,17 +22,41 @@ finally:
     # Fermeture du fichier source
     #
     file.close()
+    
+def test_list(liste):
+    if liste[0][1] in ["maths","physique","informatique","Français"]:
+        return True
+    else:
+        return False
+    
+def lignes(liste):
+    return range(len(liste))
+    
+def colonne(liste):
+    return range(len(liste[0]))
+
+def transposee(liste):
+    return [[liste[i][j] for i in lignes(liste)] for j in colonne(liste)]
 
 def modif_liste(liste):
     """Recuperation d'un maximum de int dans un tableau """
-    nombre_erreur = 0
-    for i in range(len(liste)):
-        for k in range(len(liste[i])):
-            try:
-                liste[i][k] = int(liste[i][k])
-            except TypeError or ValueError or SyntaxError:
-                nombre_erreur += 1
-    return liste
+    nombre = 0
+    while(True):
+        if test_list(liste) == True:   
+            nombre_erreur = 0
+            for i in range(len(liste)):
+                for k in range(len(liste[i])):
+                    if type(int(liste[i][k])) == int: 
+                        liste[i][k] = int(liste[i][k])
+                    else:
+                        nombre_erreur += 1
+            return liste
+        else:
+            liste = transposee(liste)
+            nombre += 1
+            if nombre == 10:
+                break
+    print("La liste n'est pas valide")
 
 def moyenne(lis):
     """Fait la moyenne de la liste"""
